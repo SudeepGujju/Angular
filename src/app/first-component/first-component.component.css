@@ -1,0 +1,17 @@
+
+.navbar
+{
+    position:fixed;
+    display: flex;
+    width:100%;
+    flex-direction:row;
+    justify-content: center;
+    border:1px solid grey;
+    background-color:blue;
+    color:white;
+}
+.navbar > div
+{
+    padding-left:2px;
+    padding-right:2px;
+}
