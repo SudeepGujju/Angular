@@ -1,8 +1,11 @@
 
-<div class="card" style="width:400px">
-  <div *ngFor="let item of List;let Idx = index;" class="card-body">
-    <h4 class="card-title">{{item.Company}}</h4>
-    <p class="card-text">Some example text.</p>
-    <a href="#" class="btn btn-primary" >See Profile</a>
-  </div>
+<div id="ParentDiv">
+    <div class="card" *ngIf="List" >
+        <div class="card-body" *ngFor="let item of List;let Idx = index">
+            <p class="card-text btn btn-primary" style="width:20vw;margin:0;" (click)="showDetails(Idx);" >{{item.brand}}</p>
+        </div>
+    </div>
+    <div>
+        <app-details [Details]="SelectedItem" *ngIf="List && SelectedItem" (updt)="Updated($event)"></app-details>
+    </div>
 </div>

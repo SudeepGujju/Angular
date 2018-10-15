@@ -1,0 +1,7 @@
+#ParentDiv
+{
+    box-sizing:border-box;
+    display: flex;
+    flex-basis:1fr 2fr; 
+}
+

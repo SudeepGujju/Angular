@@ -1,0 +1,8 @@
+
+<div class="card" *ngIf="Details" style="width:25vw;">
+  <div class="card-text  bg-failure text-center">{{Details.name}}</div>
+  <div class="card-text text-center">{{Details.device}}</div>
+  <div class="card-text text-center bg-light">{{Details.model}}</div>
+  <label>Price:</label>
+  <input type="text" [(ngModel)]="Details.price"  (blur)="priceUpdate($event.target.value)" /> 
+</div>

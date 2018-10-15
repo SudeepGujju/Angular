@@ -14,4 +14,16 @@ export class ListComponentComponent implements OnInit {
   ngOnInit() {
   }
 
+  SelectedItem;
+
+  showDetails(vIdx)
+  {
+    this.SelectedItem  = this.List[vIdx];
+  }
+
+  Updated(param)
+  {
+    console.log(`Price updated  -> ${param}`);
+  }
+
 }

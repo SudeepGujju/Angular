@@ -1,0 +1,5 @@
+{
+    "editor.fontSize": 12,
+    "workbench.colorTheme": "Default Light+",
+    "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe"
+}
