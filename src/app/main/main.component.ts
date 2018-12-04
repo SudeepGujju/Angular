@@ -68,6 +68,29 @@ export class MainComponent{
     showVehicles(vehCode){
        this.VehiclesCode = vehCode;
     }
+
+    ImagesArr=[
+        {
+            source:'https://wallpaper-house.com/data/out/21/wallpaper2you_6172.jpg',
+            isActive:false,
+        },
+        {
+            source:'http://kickstart.bikeexif.com/wp-content/uploads/2010/08/harley-davidson-sportster-a.jpg',
+            isActive:true,
+        },
+        {
+            source:'http://www.motorcycle.com/images/content/Review/Harley-Davidson-Sportster1-0425.jpg',
+            isActive:false,
+        },
+        {
+            source:'https://www.thehindu.com/life-and-style/motoring/article23432605.ece/alternates/FREE_660/03bgavenger220newjpg',
+            isActive:true,
+        }
+    ];
+
+    updateLikeStatus(statusObj){
+        this.ImagesArr[statusObj.index].isActive = statusObj.status;
+    }
 }
 
 /*

@@ -8,13 +8,18 @@ import { MainComponent } from './main/main.component';
 import { DetailsComponent } from './details/details.component';
 
 import { ListComponentComponent } from './list-component/list-component.component';
+import { LikeComponent } from './like/like.component';
+import { JSONPLACEComponent } from './jsonplace/jsonplace.component';
 
 import { MainService } from './main/main.service';
 import { CustomService } from './service/custom.service';
 
 import { AgePipe } from './pipe/age.pipe';
 import { CustomTitlePipe } from './pipe/custom-title.pipe';
-import { LikeComponent } from './like/like.component';
+
+import { FormatDirective } from './directives/format.directive';
+
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -25,10 +30,13 @@ import { LikeComponent } from './like/like.component';
     AgePipe,
     CustomTitlePipe,
     LikeComponent,
+    FormatDirective,
+    JSONPLACEComponent,
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [
     MainService,

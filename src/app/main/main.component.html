@@ -13,9 +13,16 @@
          <li class="nav-item active">
             <a class="nav-link" href="#" (click)="FlagShowVehicles = !FlagShowVehicles">Vehicles</a>
          </li>
+         <li class="nav-item active">
+            <a class="nav-link" href="#" (click)="showPipes = !showPipes">Pipes</a>
+         </li>
+         <li class="nav-item active">
+            <a class="nav-link" href="#" (click)="ShowJSONList = !ShowJSONList">JSONPlaceHolder</a>
+         </li>
     </ul>
 </nav>
 <app-list-component [List]="ProductList" ></app-list-component>
+<app-jsonplace *ngIf="ShowJSONList" ></app-jsonplace>
 <style>
     .heading{
         text-align: center;
@@ -71,21 +78,9 @@
                 <h4>Bikes</h4>
             </div>
             <div  class="outter">
-                <div class="inner">
-                    <img src="https://wallpaper-house.com/data/out/21/wallpaper2you_6172.jpg" />
-                    <app-like></app-like>
-                </div>
-                <div class="inner">
-                    <img src="http://kickstart.bikeexif.com/wp-content/uploads/2010/08/harley-davidson-sportster-a.jpg" />
-                    <app-like></app-like>
-                </div>
-                <div class="inner">
-                    <img src="http://www.motorcycle.com/images/content/Review/Harley-Davidson-Sportster1-0425.jpg"/>
-                    <app-like></app-like>
-                </div>
-                <div class="inner">
-                    <img src="https://www.thehindu.com/life-and-style/motoring/article23432605.ece/alternates/FREE_660/03bgavenger220newjpg" />
-                    <app-like></app-like>
+                <div class="inner" *ngFor="let ImgObj of ImagesArr;let i = index;">
+                    <img [src]="ImgObj.source" alt="Image Not Available"/>
+                    <app-like [isActive]="ImgObj.isActive" [index]="i" (updateLike)="updateLikeStatus($event)"></app-like>
                 </div>
             </div>
         </div>
@@ -106,27 +101,20 @@
       {{Person | json}}  
 </div>
 <div *ngIf="FlagShowPersons && Person" >
-    <b> {{Person.name | uppercase    }} </b>
-    <br>
-    <b> {{Person.name | lowercase }} </b>
-    <br>
-    <b> {{Person.name | titlecase   }} </b>
-    <br>
-    <b> {{Person.INR | currency:"INR"   }} </b>
-    <br>
-    <b> {{Person.INR | currency:"INR":"symbol":"9.1"   }} </b>
-    <br>
-    <b> {{Person.dob | age   }} </b>
-    <br>
-    <b>{{ CurrDate | date }}</b>
-    <br>
-    <b>{{ CurrDate | date:"MMM d, y" }}</b>
-    <br>
-    <b>{{ CurrDate | date:"shortDate" }}</b>
-</div>
-<!-- TitleCasePipe
-DecimalPipe -->
-<input type="text" #textfield (keyup)="0"/>
-{{ textfield.value | titlecase }}
+    <b> Name - {{Person.name | uppercase    }} </b> -> <b> {{Person.name | lowercase }} </b> -> <b> {{Person.name | titlecase   }} </b>
 <br>
-{{ textfield.value | customTitle }}
+    <b> {{Person.INR | currency:"INR"   }} </b> -> <b> {{Person.INR | currency:"INR":"symbol":"9.1"   }} </b>
+<br>
+    <b> Age - {{ Person.dob | age   }} </b>
+<br>
+    <b>{{ CurrDate | date }}</b> -> <b>{{ CurrDate | date:"MMM d, y" }}</b> -> <b>{{ CurrDate | date:"shortDate" }}</b>
+</div>
+<div *ngIf="showPipes">
+    <!-- TitleCasePipe
+    DecimalPipe -->
+    <input type="text" #textfield (keyup)="0" appFormat [format]="uppercase"/>
+    <br>
+    {{ textfield.value | titlecase }}
+    <br>
+    {{ textfield.value | customTitle }}
+</div>

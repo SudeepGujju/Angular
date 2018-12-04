@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-like',
@@ -7,11 +7,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LikeComponent implements OnInit {
 
-  isActive = false;
+  @Input() isActive;
+  @Input('index') idx;
+
+  @Output("updateLike") updateLike = new EventEmitter();
+
+  //isActive = false;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  LikeChange(){
+
+    //console.log(this.isActive);
+    this.isActive = !this.isActive;
+
+    this.updateLike.emit({"status":this.isActive, "index":this.idx});
   }
 
 }

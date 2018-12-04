@@ -6,6 +6,6 @@
         </div>
     </div>
     <div>
-        <app-details [Details]="SelectedItem" *ngIf="List && SelectedItem" (updt)="Updated($event)"></app-details>
+        <app-details [Details]="SelectedItem" *ngIf="SelectedItem" (updt)="Updated($event)"></app-details>
     </div>
 </div>
