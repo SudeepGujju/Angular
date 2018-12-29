@@ -1,0 +1,71 @@
+<div class="card">
+  <div class="card-header bg-primary text-white">Hello!</div>
+  <div class="card-body">
+    <div class="list-group">
+      <div class="list-group-item">
+        <div class="row">
+          <div class="col-sm-4">Name</div>
+          <div class="col-sm-6">{{ student?.Name }}</div>
+        </div>
+      </div>
+      <div class="list-group-item">
+        <div class="row">
+          <div class="col-sm-4">Gender</div>
+          <div class="col-sm-6">{{ student?.Gender }}</div>
+        </div>
+      </div>
+      <div class="list-group-item">
+        <div class="row">
+          <div class="col-sm-4 card-text">Color</div>
+          <div class="col-sm-6 card-text">{{ student?.Color }}</div>
+        </div>
+      </div>
+      <div class="list-group-item">
+        <div class="row">
+          <div class="col-sm-4 card-text">DOB</div>
+          <div class="col-sm-6 card-text">
+            {{ student?.DOB | date: shortDate }}
+          </div>
+        </div>
+      </div>
+      <ng-container *ngIf="(student?.DOB | age) as Age; else noAge">
+        <div class="list-group-item">
+          <div class="row">
+            <div class="col-sm-4 card-text">Age</div>
+            <div
+              class="col-sm-6 card-text"
+              [ngStyle]="{ color: Age < 18 ? 'red' : 'black' }"
+            >
+              {{ Age }} Years
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #noAge>
+        <div class="list-group-item">
+          <div class="row">
+            <div class="col-sm-4 card-text">Age</div>
+            <div class="col-sm-6 card-text" [ngStyle]="{ color: 'red' }">
+              0 years
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+    <div style="display:flex;justify-content:space-around;">
+      <button
+        class="btn btn-primary"
+        [routerLink]="['/students', +student?.ID - 1]"
+      >
+        previous
+      </button>
+      <button class="btn btn-primary" (click)="viewAll()">Show All</button>
+      <button
+        class="btn btn-primary"
+        [routerLink]="['/students', +student?.ID + 1]"
+      >
+        Next
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,120 +1,175 @@
-
-<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
-    <ul class="navbar-nav">
-        <li class="nav-item active">
-            <a class="nav-link" href="#" (click)="ShowMobiles()">Mobiles</a>
-        </li>
-        <li class="nav-item active">
-            <a class="nav-link" href="#" (click)="ShowLaptops()">Laptops</a>
-        </li>
-         <li class="nav-item active">
-            <a class="nav-link" href="#" (click)="FlagShowPersons = !FlagShowPersons">Persons</a>
-         </li>
-         <li class="nav-item active">
-            <a class="nav-link" href="#" (click)="FlagShowVehicles = !FlagShowVehicles">Vehicles</a>
-         </li>
-         <li class="nav-item active">
-            <a class="nav-link" href="#" (click)="showPipes = !showPipes">Pipes</a>
-         </li>
-         <li class="nav-item active">
-            <a class="nav-link" href="#" (click)="ShowJSONList = !ShowJSONList">JSONPlaceHolder</a>
-         </li>
-    </ul>
+<nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+  <a class="navbar-brand" *ngIf="AuthService.isLoggedIn()">{{
+    "hello!" + AuthService.currentUser?.name | titlecase
+  }}</a>
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" href="#" (click)="ShowMobiles()">Mobiles</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#" (click)="ShowLaptops()">Laptops</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#" (click)="FlagShowPersons = !FlagShowPersons"
+        >Persons</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        href="#"
+        (click)="FlagShowVehicles = !FlagShowVehicles"
+        >Vehicles</a
+      >
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#" (click)="showPipes = !showPipes">Pipes</a>
+    </li>
+    <li class="nav-item" [ngClass]="ShowJSONList ? 'active' : ''">
+      <a class="nav-link" href="#" (click)="ShowJSONList = !ShowJSONList"
+        >JSONPlaceHolder</a
+      >
+    </li>
+    <li
+      class="nav-item"
+      routerLinkActive="active"
+      *ngIf="AuthService.isLoggedIn() && AuthService.currentUser?.admin"
+    >
+      <a class="nav-link" routerLink="/students">Students</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#" (click)="AuthService.logout()">Logout</a>
+    </li>
+  </ul>
 </nav>
-<app-list-component [List]="ProductList" ></app-list-component>
-<app-jsonplace *ngIf="ShowJSONList" ></app-jsonplace>
-<style>
-    .heading{
+<div style="display:inline-flex;justify-content:space-around;width:100%;">
+  <div style="width:50%;">
+    <app-list-component [List]="ProductList"></app-list-component>
+    <app-jsonplace *ngIf="ShowJSONList"></app-jsonplace>
+    <style>
+      .heading {
         text-align: center;
         font: normal small-caps normal 16px/1.4 Georgia;
-    }
-    .outter{
-        width:100%;
+      }
+      .outter {
+        width: 100%;
         height: 25%;
-        display:flex;
-        overflow-x:auto;
-        padding:0;
-    }
-    .outter > .inner{
-        width:25%;
+        display: flex;
+        overflow-x: auto;
+        padding: 0;
+      }
+      .outter > .inner {
+        width: 25%;
         text-align: center;
         padding-top: 10px;
         padding-bottom: 10px;
-    }
+      }
 
-    .outter > .inner > img{
+      .outter > .inner > img {
         height: 25vh;
         width: 23vw;
-        box-shadow:0px 0px 9px 2px grey;
-    }
-</style>
-<div *ngIf="FlagShowVehicles">
-    <div style="text-align: center;padding: 5px;">
-        <input type="button" class="vehc btn btn-sm" [class.btn-secondary]="VehiclesCode!=1" [class.btn-primary]="VehiclesCode==1" value="Cars" (click)="showVehicles(1)">
-        <input type="button" class="vehc btn btn-sm" [class.btn-secondary]="VehiclesCode!=2" [class.btn-primary]="VehiclesCode==2" value="Bikes" (click)="showVehicles(2)">
-    </div>
-    <div [ngSwitch]="VehiclesCode" >
+        box-shadow: 0px 0px 9px 2px grey;
+      }
+    </style>
+    <div *ngIf="FlagShowVehicles">
+      <div style="text-align: center;padding: 5px;">
+        <input
+          type="button"
+          class="vehc btn btn-sm"
+          [class.btn-secondary]="VehiclesCode != 1"
+          [class.btn-primary]="VehiclesCode == 1"
+          value="Cars"
+          (click)="showVehicles(1)"
+        />
+        <input
+          type="button"
+          class="vehc btn btn-sm"
+          [class.btn-secondary]="VehiclesCode != 2"
+          [class.btn-primary]="VehiclesCode == 2"
+          value="Bikes"
+          (click)="showVehicles(2)"
+        />
+      </div>
+      <div [ngSwitch]="VehiclesCode">
         <div *ngSwitchCase="1">
-            <div class="heading">
-                <h4>Cars</h4> 
+          <div class="heading"><h4>Cars</h4></div>
+          <div class="outter">
+            <div class="inner">
+              <img
+                src="https://media.luxhabitat.ae/journal/13a6e46684b9f4fe96aa3bc1453670c6_mod_original.jpg"
+              />
             </div>
-            <div  class="outter">
-                <div class="inner">
-                    <img src="https://media.luxhabitat.ae/journal/13a6e46684b9f4fe96aa3bc1453670c6_mod_original.jpg"/>    
-                </div>
-                <div class="inner">
-                    <img src="https://media.luxhabitat.ae/journal/16d29b0fda586be6fbc182ba9ac23b3a_mod_original.jpg" />
-                </div>
-                <div class="inner">
-                    <img src="https://media.luxhabitat.ae/journal/ddf439382b50eeb692f9b1a4cebd0974_mod_original.jpg" />
-                </div>
-                <div class="inner">
-                    <img src="https://media.luxhabitat.ae/journal/e2ed2183073efb3a8da54ca6860a795b_mod_original.jpg"/>
-                </div>
+            <div class="inner">
+              <img
+                src="https://media.luxhabitat.ae/journal/16d29b0fda586be6fbc182ba9ac23b3a_mod_original.jpg"
+              />
             </div>
+            <div class="inner">
+              <img
+                src="https://media.luxhabitat.ae/journal/ddf439382b50eeb692f9b1a4cebd0974_mod_original.jpg"
+              />
+            </div>
+            <div class="inner">
+              <img
+                src="https://media.luxhabitat.ae/journal/e2ed2183073efb3a8da54ca6860a795b_mod_original.jpg"
+              />
+            </div>
+          </div>
         </div>
         <div *ngSwitchCase="2">
-            <div class="heading">
-                <h4>Bikes</h4>
+          <div class="heading"><h4>Bikes</h4></div>
+          <div class="outter">
+            <div class="inner" *ngFor="let ImgObj of ImagesArr; let i = index">
+              <img [src]="ImgObj.source" alt="Image Not Available" />
+              <app-like
+                [isActive]="ImgObj.isActive"
+                [index]="i"
+                (updateLike)="updateLikeStatus($event)"
+              ></app-like>
             </div>
-            <div  class="outter">
-                <div class="inner" *ngFor="let ImgObj of ImagesArr;let i = index;">
-                    <img [src]="ImgObj.source" alt="Image Not Available"/>
-                    <app-like [isActive]="ImgObj.isActive" [index]="i" (updateLike)="updateLikeStatus($event)"></app-like>
-                </div>
-            </div>
+          </div>
         </div>
         <div *ngSwitchDefault>
-            <div class="heading">
-                <h4>No Item Selected</h4>
-            </div>
+          <div class="heading"><h4>No Item Selected</h4></div>
         </div>
+      </div>
     </div>
-</div>
 
-<div *ngIf="FlagShowPersons">
-    <ul>
-        <li *ngFor="let person of PersonsList;let i = index;" ><a (click)="showPersonDetails(i)">{{person.name}}</a></li>
-    </ul>
-</div>
-<div *ngIf="FlagShowPersons" >
-      {{Person | json}}  
-</div>
-<div *ngIf="FlagShowPersons && Person" >
-    <b> Name - {{Person.name | uppercase    }} </b> -> <b> {{Person.name | lowercase }} </b> -> <b> {{Person.name | titlecase   }} </b>
-<br>
-    <b> {{Person.INR | currency:"INR"   }} </b> -> <b> {{Person.INR | currency:"INR":"symbol":"9.1"   }} </b>
-<br>
-    <b> Age - {{ Person.dob | age   }} </b>
-<br>
-    <b>{{ CurrDate | date }}</b> -> <b>{{ CurrDate | date:"MMM d, y" }}</b> -> <b>{{ CurrDate | date:"shortDate" }}</b>
-</div>
-<div *ngIf="showPipes">
-    <!-- TitleCasePipe
-    DecimalPipe -->
-    <input type="text" #textfield (keyup)="0" appFormat [format]="uppercase"/>
-    <br>
-    {{ textfield.value | titlecase }}
-    <br>
-    {{ textfield.value | customTitle }}
+    <div *ngIf="FlagShowPersons">
+      <ul>
+        <li *ngFor="let person of PersonsList; let i = index">
+          <a (click)="showPersonDetails(i)">{{ person.name }}</a>
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="FlagShowPersons">{{ Person | json }}</div>
+    <div *ngIf="FlagShowPersons && Person">
+      <b> Name - {{ Person.name | uppercase }} </b> ->
+      <b> {{ Person.name | lowercase }} </b> ->
+      <b> {{ Person.name | titlecase }} </b> <br />
+      <b> {{ Person.INR | currency: "INR" }} </b> ->
+      <b> {{ Person.INR | currency: "INR":"symbol":"9.1" }} </b> <br />
+      <b> Age - {{ Person.dob | age }} </b> <br />
+      <b>{{ CurrDate | date }}</b> ->
+      <b>{{ CurrDate | date: "MMM d, y" }}</b> ->
+      <b>{{ CurrDate | date: "shortDate" }}</b>
+    </div>
+    <div *ngIf="showPipes">
+      <!--
+        TitleCasePipe
+        DecimalPipe
+      -->
+      <input
+        type="text"
+        #textfield
+        (keyup)="(0)"
+        appFormat
+        [format]="uppercase"
+      />
+      <br />
+      {{ textfield.value | titlecase }} <br />
+      {{ textfield.value | customTitle }}
+    </div>
+  </div>
+  <div style="width:20%;"><app-adds></app-adds></div>
 </div>

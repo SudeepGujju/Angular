@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <ul>
+        <!--(click)="getStudent(student.ID)"-->
+        <li
+          *ngFor="let student of StudentsList"
+          class="list-group-item list-group-item-action"
+          style="cursor:pointer"
+        >
+          {{ student.Name }}
+          <a class="card-link" [routerLink]="[student.ID]">View Details</a>
+        </li>
+      </ul>
+    </div>
+    <!--
+    <div class="col-sm-6" *ngIf="student">
+      <app-student-details [student]="student"></app-student-details>
+    </div>
+  --></div>
+</div>

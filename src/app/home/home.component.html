@@ -1,0 +1,15 @@
+<ng-container *ngIf="AuthService.isLoggedIn(); else HomeNavBar">
+  <app-main></app-main>
+</ng-container>
+<ng-template #HomeNavBar>
+  <nav
+    class="navbar navbar-dark"
+    [ngStyle]="{ 'background-color': navBarColor }"
+  >
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/login">Login</a>
+      </li>
+    </ul>
+  </nav>
+</ng-template>
