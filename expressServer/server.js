@@ -7,18 +7,21 @@ http.createServer((req,res)=>{});
 const express = require("express");
 const bodyParser = require("body-parser");
 const router = express.Router();
+const cors = require("cors");
 
 const app = express();
 
 app.use(bodyParser.json());
 
+app.use(cors());
+/*
 app.use(function(req, res, next){
 	
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
 	next();
 	
-});
+});*/
 //Non-admin
 let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InN1ZGVlcCIsImlhdCI6MTUxNjIzOTAyMn0.MI7lU6bWvbSKB4Em_A7KB5Bf-Yq-VOnk5cwZoDHcWXQ";
 //admin

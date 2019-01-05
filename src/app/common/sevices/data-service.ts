@@ -58,7 +58,7 @@ export class DataService {
 
   private handleError(err: Response) {
     console.log(err);
-    console.log(err.status, "response");
+    console.log(err.status, "Status Code");
     if (err.status == 0) return throwError(new ConnectionError(err));
     else if (err.status == 400) return throwError(new BadRequestError(err));
     else if (err.status == 404) return throwError(new NotFoundError(err));
