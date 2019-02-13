@@ -1,7 +1,7 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule, ErrorHandler } from "@angular/core";
 
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 
 import { AppComponent } from "./app.component";
@@ -41,6 +41,9 @@ import { InvalidurlComponent } from "./invalidurl/invalidurl.component";
 import { NoAccessComponent } from "./no-access/no-access.component";
 import { AdminAuthGuard } from "./common/sevices/admin-auth-guard";
 import { StudentResolver } from "./students/student.resolve";
+import { SignupComponent } from "./signup/signup.component";
+
+import { UserService } from "./signup/signup.service";
 
 @NgModule({
   declarations: [
@@ -61,43 +64,53 @@ import { StudentResolver } from "./students/student.resolve";
     HomeComponent,
     LoginComponent,
     InvalidurlComponent,
-    NoAccessComponent
+    NoAccessComponent,
+    SignupComponent
   ],
   entryComponents: AddsComponents,
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot([
-      {
-        path: "",
-        component: HomeComponent
-      },
-      {
-        path: "login",
-        component: LoginComponent
-      },
-      {
-        path: "students/:id",
-        component: StudentDetailsComponent,
-        canActivate: [AuthGuard, AdminAuthGuard]
-      },
-      {
-        path: "students",
-        component: StudentsComponent,
-        canActivate: [AuthGuard, AdminAuthGuard],
-        resolve: {
-          student: StudentResolver
-        }
-      },
-      {
-        path: "noaccess",
-        component: NoAccessComponent
-      },
-      { path: "**", component: InvalidurlComponent }
-    ])
+    ReactiveFormsModule,
+    RouterModule.forRoot(
+      [
+        {
+          path: "",
+          component: HomeComponent
+        },
+        {
+          path: "login",
+          component: LoginComponent
+        },
+        {
+          path: "signUp",
+          component: SignupComponent
+        },
+        {
+          path: "students/:id",
+          component: StudentDetailsComponent,
+          canActivate: [AuthGuard, AdminAuthGuard]
+        },
+        {
+          path: "students",
+          component: StudentsComponent,
+          canActivate: [AuthGuard, AdminAuthGuard],
+          resolve: {
+            student: StudentResolver
+          }
+        },
+        {
+          path: "noaccess",
+          component: NoAccessComponent
+        },
+        { path: "**", component: InvalidurlComponent }
+      ]
+      //,{ enableTracing: true }
+    )
   ],
   providers: [
+    UserService,
     MainService,
     CustomService,
     PostService,

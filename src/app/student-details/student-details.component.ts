@@ -53,7 +53,7 @@ export class StudentDetailsComponent implements OnInit {
     else if (err instanceof AppError) throw err;
   }
 
-  ngOnDestory() {
+  ngOnDestroy() {
     console.log("Destroyed Component");
   }
 }
