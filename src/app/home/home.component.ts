@@ -13,5 +13,10 @@ export class HomeComponent implements OnInit {
   navBarColor;
   ngOnInit() {
     this.navBarColor = environment.navBarColor;
+    //console.log(this.AuthService.isLoggedIn());
+    /* this.AuthService.isLoggedIn()
+      ? location.assign("")
+      : location.assign("login"); */
+    if (!this.AuthService.isLoggedIn()) location.assign("login");
   }
 }

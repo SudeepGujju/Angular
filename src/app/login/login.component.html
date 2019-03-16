@@ -1,22 +1,69 @@
-<form #f="ngForm" (ngSubmit)="signIn(f.value)" class="m-5">
-  <div class="container alert alert-danger" *ngIf="invalidLogin">
-    Invalid username/password
-  </div>
-  <div class="form-group container">
-    <label for="email">username</label>
-    <input type="text" name="email" id="email" ngModel class="form-control" />
-  </div>
-  <div class="form-group container">
-    <label for="password">password</label>
-    <input
-      type="password"
-      name="password"
-      id="password"
-      ngModel
-      class="form-control"
-    />
-  </div>
-  <div class="form-group container">
-    <button type="submit" class="btn btn-primary">login</button>
+<form #loginForm="ngForm" (ngSubmit)="signIn(loginForm.value)">
+  <div
+    class="d-md-flex justify-content-center align-items-center mt-md-5 mt-5 col-sm-12"
+  >
+    <div class="card login-div">
+      <div class="card-body">
+        <div class="card-title text-center display-4">
+          Login
+          <hr />
+        </div>
+        <div class="form-group">
+          <div class="alert alert-danger" *ngIf="errorMsg">
+            {{ errorMsg }}
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group" style="border-radius:5px">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            <input
+              type="text"
+              name="email"
+              id="email"
+              ngModel
+              class="form-control"
+              placeholder="Email"
+              emailValidator
+              required
+              #email="ngModel"
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-key"></i></span>
+            </div>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              ngModel
+              class="form-control"
+              placeholder="Password"
+              minlength="8"
+              maxlength="15"
+              required
+              passwordValidator
+              #password="ngModel"
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <button
+            type="submit"
+            class="btn btn-primary btn-block"
+            [disabled]="!loginForm.valid"
+          >
+            Sign In
+          </button>
+          <div class="mt-1" style="font-size:small;">
+            Don't have an account?&nbsp;<a href="signUp">SignUp</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </form>

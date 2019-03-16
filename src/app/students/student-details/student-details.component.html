@@ -1,6 +1,5 @@
 <div class="card">
-  <div class="card-header bg-primary text-white">Hello!</div>
-  <div class="card-body">
+  <div class="card-body" *ngIf="(student$ | async) as student">
     <div class="list-group">
       <div class="list-group-item">
         <div class="row">
@@ -59,7 +58,9 @@
       >
         previous
       </button>
-      <button class="btn btn-primary" (click)="viewAll()">Show All</button>
+      <button class="btn btn-primary" (click)="viewAll(+student?.ID)">
+        Show All
+      </button>
       <button
         class="btn btn-primary"
         [routerLink]="['/students', +student?.ID + 1]"

@@ -1,12 +1,13 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError, tap, map } from "rxjs/operators";
-import { throwError } from "rxjs";
+import { throwError, Observable } from "rxjs";
 import { AppError } from "../Error/app-error";
 import { BadRequestError } from "../Error/bad-input-error";
 import { NotFoundError } from "../Error/not-found-error";
 import { ConnectionError } from "../Error/connection.error";
 import { AuthService } from "./auth.service";
+import { Student } from "src/app/students/Student.Interface";
 
 @Injectable()
 export class DataService {
@@ -26,9 +27,10 @@ export class DataService {
     );
   }
 
-  get(id) {
+  get(id): Observable<Student> {
     return this.http.get(this.url + "/" + id).pipe(
       tap(this.log),
+      map(data => data[0]),
       catchError(this.handleError)
     );
   }
@@ -75,6 +77,6 @@ export class DataService {
   }
 
   private log(data) {
-    // console.log("Logging > " + JSON.parse(data));
+    //console.log("Logging > ", data);
   }
 }

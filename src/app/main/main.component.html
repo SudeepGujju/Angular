@@ -4,41 +4,45 @@
   }}</a>
   <ul class="navbar-nav">
     <li class="nav-item">
-      <a class="nav-link" href="#" (click)="ShowMobiles()">Mobiles</a>
+      <a class="nav-link" (click)="ShowMobiles()">Mobiles</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#" (click)="ShowLaptops()">Laptops</a>
+      <a class="nav-link" (click)="ShowLaptops()">Laptops</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#" (click)="FlagShowPersons = !FlagShowPersons"
+      <a class="nav-link" (click)="FlagShowPersons = !FlagShowPersons"
         >Persons</a
       >
     </li>
     <li class="nav-item">
-      <a
-        class="nav-link"
-        href="#"
-        (click)="FlagShowVehicles = !FlagShowVehicles"
+      <a class="nav-link" (click)="FlagShowVehicles = !FlagShowVehicles"
         >Vehicles</a
       >
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#" (click)="showPipes = !showPipes">Pipes</a>
+      <a class="nav-link" (click)="showPipes = !showPipes">Pipes</a>
     </li>
     <li class="nav-item" [ngClass]="ShowJSONList ? 'active' : ''">
-      <a class="nav-link" href="#" (click)="ShowJSONList = !ShowJSONList"
+      <a class="nav-link" (click)="ShowJSONList = !ShowJSONList"
         >JSONPlaceHolder</a
       >
     </li>
     <li
       class="nav-item"
       routerLinkActive="active"
-      *ngIf="AuthService.isLoggedIn() && AuthService.currentUser?.admin"
+      *ngIf="AuthService.isLoggedIn() && AuthService.currentUser?.isAdmin"
     >
       <a class="nav-link" routerLink="/students">Students</a>
     </li>
+    <li
+      class="nav-item"
+      routerLinkActive="active"
+      *ngIf="AuthService.isLoggedIn() && AuthService.currentUser?.isAdmin"
+    >
+      <a class="nav-link" routerLink="/vidly">Vidly</a>
+    </li>
     <li class="nav-item">
-      <a class="nav-link" href="#" (click)="AuthService.logout()">Logout</a>
+      <a class="nav-link" (click)="AuthService.logout()">Logout</a>
     </li>
   </ul>
 </nav>
@@ -171,5 +175,5 @@
       {{ textfield.value | customTitle }}
     </div>
   </div>
-  <div style="width:20%;"><app-adds></app-adds></div>
+  <!-- <div style="width:20%;"><app-adds></app-adds></div> -->
 </div>

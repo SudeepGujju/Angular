@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  navBarColor: 'red'
+  navBarColor: "red",
+  serverUrl: "http://localhost:6800/"
 };
 
 /*

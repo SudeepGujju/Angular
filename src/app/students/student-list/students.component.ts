@@ -1,17 +1,19 @@
 import { Component, OnInit } from "@angular/core";
-import { StudentsService } from "./students.service";
-import { Student } from "./Student.Interface";
-import { map, retry, tap } from "rxjs/operators";
-import { AppError } from "../common/Error/app-error";
-import { BadRequestError } from "../common/Error/bad-input-error";
-import { NotFoundError } from "../common/Error/not-found-error";
-import { ConnectionError } from "../common/Error/connection.error";
-import { ActivatedRouteSnapshot, ActivatedRoute } from "@angular/router";
+import { StudentsService } from "../students.service";
+import { Student } from "../Student.Interface";
+import { tap } from "rxjs/operators";
+import { AppError } from "../../common/Error/app-error";
+import { BadRequestError } from "../../common/Error/bad-input-error";
+import { NotFoundError } from "../../common/Error/not-found-error";
+import { ConnectionError } from "../../common/Error/connection.error";
+import { ActivatedRoute } from "@angular/router";
+import { fade } from "src/app/common/animations/fade.animation";
 
 @Component({
   selector: "app-students",
   templateUrl: "./students.component.html",
   styleUrls: ["./students.component.css"]
+  //animations: [fade]
 })
 export class StudentsComponent implements OnInit {
   StudentsList: Student[];

@@ -1,11 +1,14 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, Validators } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
+import { FormBuilder, Validators, FormControl } from "@angular/forms";
+import { Router } from "@angular/router";
 import { UserService } from "./signup.service";
 import { AppError } from "../common/Error/app-error";
 import { BadRequestError } from "../common/Error/bad-input-error";
 import { NotFoundError } from "../common/Error/not-found-error";
 import { ConnectionError } from "../common/Error/connection.error";
+import { emailValidator } from "../common/utilities/validators/functions/email-validator";
+import { passwordValidator } from "../common/utilities/validators/functions/password-validate";
+import { comparePasswords } from "../common/utilities/validators/functions/compare-password";
 
 @Component({
   selector: "app-signup",
@@ -17,28 +20,37 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private router: ActivatedRoute,
+    private router: Router,
     private userService: UserService
   ) {}
 
   ngOnInit() {
-    this.profileForm = this.fb.group({
-      name: ["sudeep", [Validators.required, Validators.minLength(5)]],
-      email: ["sudeep@gm", [Validators.required, Validators.email]],
-      password: ["1452369877", [Validators.required, Validators.minLength(8)]],
-      confirmPassword: [
-        "1452369877",
-        [Validators.required, Validators.minLength(8)]
-      ],
-      phone: [
-        "9874563210",
-        [
-          Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(10)
+    this.profileForm = this.fb.group(
+      {
+        name: ["", [Validators.required, Validators.minLength(5)]],
+        email: ["", [Validators.required, emailValidator()]],
+        password: [
+          "",
+          [Validators.required, Validators.minLength(8), passwordValidator()]
+        ],
+        confirmPassword: ["", [Validators.required, Validators.minLength(8)]],
+        phone: [
+          "",
+          [
+            Validators.required,
+            Validators.minLength(10),
+            Validators.maxLength(10)
+          ]
         ]
-      ]
-    });
+      },
+      {
+        validators: comparePasswords()
+      }
+    );
+  }
+
+  get email() {
+    return this.profileForm.get("email") as FormControl;
   }
 
   signUp() {
@@ -53,6 +65,8 @@ export class SignupComponent implements OnInit {
 
     this.userService.register(profileValues).subscribe(data => {
       alert("SignUp successful");
+      this.profileForm.reset();
+      this.router.navigateByUrl("/login");
     }, this.localErrorMessage);
   }
 

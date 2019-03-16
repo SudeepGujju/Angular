@@ -17,18 +17,11 @@ import { CustomService } from "./service/custom.service";
 import { PostService } from "./jsonplace/post.service";
 import { DataService } from "./common/sevices/data-service";
 
-import { AgePipe } from "./pipe/age.pipe";
-import { CustomTitlePipe } from "./pipe/custom-title.pipe";
-
 import { FormatDirective } from "./directives/format.directive";
-
-import { StudentsComponent } from "./students/students.component";
-import { StudentsService } from "./students/students.service";
 
 import { RouterModule } from "@angular/router";
 
 import { MyErrorHandler } from "./common/Error/app-error-handler";
-import { StudentDetailsComponent } from "./student-details/student-details.component";
 import { AddsComponent } from "./adds/adds.component";
 import { AdDirective } from "./adds/ad.directive";
 import { AddsComponents } from "./adds/ad.template";
@@ -40,24 +33,24 @@ import { AuthGuard } from "./common/sevices/auth-guard";
 import { InvalidurlComponent } from "./invalidurl/invalidurl.component";
 import { NoAccessComponent } from "./no-access/no-access.component";
 import { AdminAuthGuard } from "./common/sevices/admin-auth-guard";
-import { StudentResolver } from "./students/student.resolve";
 import { SignupComponent } from "./signup/signup.component";
 
 import { UserService } from "./signup/signup.service";
-
+import { VidlyModule } from "./vidly/vidly.module";
+import { EmailValidatorDirective } from "./common/utilities/validators/directives/email-validator.directive";
+import { PasswordValidatorDirective } from "./common/utilities/validators/directives/password-validator.directive";
+import { StudentsModule } from "./students/students.module";
+import { CustomPipesModule } from "./common/pipe/custom-pipes.module";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
     DetailsComponent,
     ListComponentComponent,
-    AgePipe,
-    CustomTitlePipe,
     LikeComponent,
     FormatDirective,
     JSONPLACEComponent,
-    StudentsComponent,
-    StudentDetailsComponent,
     AddsComponent,
     AdDirective,
     AddsComponents,
@@ -65,7 +58,9 @@ import { UserService } from "./signup/signup.service";
     LoginComponent,
     InvalidurlComponent,
     NoAccessComponent,
-    SignupComponent
+    SignupComponent,
+    EmailValidatorDirective,
+    PasswordValidatorDirective
   ],
   entryComponents: AddsComponents,
   imports: [
@@ -73,36 +68,31 @@ import { UserService } from "./signup/signup.service";
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    CustomPipesModule,
+    VidlyModule,
+    StudentsModule,
     RouterModule.forRoot(
       [
-        {
-          path: "",
-          component: HomeComponent
-        },
         {
           path: "login",
           component: LoginComponent
         },
+        /* {
+          path: "main",
+          component: MainComponent
+        }, */
         {
           path: "signUp",
           component: SignupComponent
         },
         {
-          path: "students/:id",
-          component: StudentDetailsComponent,
-          canActivate: [AuthGuard, AdminAuthGuard]
-        },
-        {
-          path: "students",
-          component: StudentsComponent,
-          canActivate: [AuthGuard, AdminAuthGuard],
-          resolve: {
-            student: StudentResolver
-          }
-        },
-        {
           path: "noaccess",
           component: NoAccessComponent
+        },
+        {
+          path: "",
+          component: HomeComponent
         },
         { path: "**", component: InvalidurlComponent }
       ]
@@ -114,14 +104,12 @@ import { UserService } from "./signup/signup.service";
     MainService,
     CustomService,
     PostService,
-    StudentsService,
     DataService,
     AddsService,
     { provide: ErrorHandler, useClass: MyErrorHandler },
     AuthService,
     AuthGuard,
-    AdminAuthGuard,
-    StudentResolver
+    AdminAuthGuard
   ],
   bootstrap: [AppComponent]
 })

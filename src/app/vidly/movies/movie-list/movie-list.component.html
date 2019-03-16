@@ -1,0 +1,48 @@
+<div class="">
+  <table class="table table-bordered table-stripped table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th>#</th>
+        <th>Title</th>
+        <th>Genre</th>
+        <th>In Stock</th>
+        <th>Rate</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="(MoviesList$ | async) as moviesList; else loading">
+      <tr
+        *ngFor="let movie of moviesList; let i = index"
+        [routerLink]="[movie._id]"
+      >
+        <!-- {{
+              movie | json
+            }} -->
+        <td>{{ i + 1 }}</td>
+        <td>{{ movie.title }}</td>
+        <td>{{ movie.genre.name }}</td>
+        <td>{{ movie.numberInStock }}</td>
+        <td>{{ movie.dailyRentalRate }}</td>
+      </tr>
+
+      <!-- <tr>
+            <td>
+              X-Men
+            </td>
+            <td>
+              Sci-Fi
+            </td>
+          </tr>
+          <tr>
+            <td>
+              X-Men
+            </td>
+            <td>
+              Sci-Fi
+            </td>
+          </tr> -->
+    </tbody>
+  </table>
+  <ng-template #loading>
+    Loading
+  </ng-template>
+</div>

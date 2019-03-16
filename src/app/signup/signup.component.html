@@ -1,73 +1,93 @@
 <form [formGroup]="profileForm" (ngSubmit)="signUp()">
-  <div class="container">
-    <div class="form-group row">
-      <label for="name" class="col-sm-2 col-md-2 col-form-label">Name</label>
-      <div class="col-sm-10">
-        <input
-          type="text"
-          class="form-control"
-          formControlName="name"
-          required
-        />
+  <div class="d-md-flex justify-content-center align-items-center mt-md-5">
+    <div class="card loginform">
+      <div class="card-body">
+        <div class="card-title text-center">
+          Register Details
+          <hr />
+        </div>
+        <div class="form-group row">
+          <label for="name" class="col-sm-12 col-md-4 col-form-label"
+            >Name</label
+          >
+          <div class="col-sm-12 col-md-8">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="name"
+              required
+            />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="name" class="col-sm-12 col-md-4 col-form-label"
+            >Email</label
+          >
+          <div class="col-sm-12 col-md-8">
+            <input
+              type="email"
+              class="form-control"
+              formControlName="email"
+              required
+            />
+            <div
+              *ngIf="email.dirty && email.errors?.InvalidEmail"
+              class="alert alert-danger"
+            >
+              Invalid email format
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="name" class="col-sm-12 col-md-4 col-form-label"
+            >Password</label
+          >
+          <div class="col-sm-12 col-md-8">
+            <input
+              type="password"
+              class="form-control"
+              formControlName="password"
+              required
+            />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="name" class="col-sm-12 col-md-4 col-form-label"
+            >Confirm Password</label
+          >
+          <div class="col-sm-12 col-md-8">
+            <input
+              type="password"
+              class="form-control"
+              formControlName="confirmPassword"
+            />
+          </div>
+        </div>
+        <div *ngIf="profileForm.errors" class="alert alert-danger">
+          Passwords didnot match
+        </div>
+        <div class="form-group row">
+          <label for="name" class="col-sm-12 col-md-4 col-form-label"
+            >Phone</label
+          >
+          <div class="col-sm-12 col-md-8">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="phone"
+              required
+            />
+          </div>
+        </div>
+        <div class="text-center">
+          <input
+            type="submit"
+            class="btn btn-primary"
+            value="Sign Up"
+            [disabled]="profileForm.invalid"
+          />
+        </div>
       </div>
-    </div>
-    <div class="form-group row">
-      <label for="name" class="col-sm-2 col-md-2 col-form-label">Email</label>
-      <div class="col-sm-10">
-        <input
-          type="email"
-          class="form-control"
-          formControlName="email"
-          required
-        />
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="name" class="col-sm-2 col-md-2 col-form-label"
-        >Password</label
-      >
-      <div class="col-sm-10">
-        <input
-          type="password"
-          class="form-control"
-          formControlName="password"
-          required
-        />
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="name" class="col-sm-2 col-md-2 col-form-label"
-        >Confirm Password</label
-      >
-      <div class="col-sm-10">
-        <input
-          type="password"
-          class="form-control"
-          formControlName="confirmPassword"
-        />
-      </div>
-    </div>
-    <div *ngIf="profileForm.errors" class="alert alert-danger">
-      Passwords didnot match
-    </div>
-    <div class="form-group row">
-      <label for="name" class="col-sm-2 col-md-2 col-form-label">Phone</label>
-      <div class="col-sm-10">
-        <input
-          type="text"
-          class="form-control"
-          formControlName="phone"
-          required
-        />
-      </div>
-    </div>
-    <div style="text-align:center;">
-      <input
-        type="submit"
-        class="btn btn-primary"
-        value="Sign Up"
-        [disabled]="profileForm.invalid"
-      />
     </div>
   </div>
 </form>

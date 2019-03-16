@@ -1,0 +1,29 @@
+<!-- <nav
+  class="nav nav-tabs nav-justified bg-primary"
+  style="border:1px solid greenyellow;"
+>
+  <a routerLink="genres" routerLinkActive="active" class="nav-item nav-link"
+    >Genres</a
+  >
+  <a routerLink="movies" routerLinkActive="active" class="nav-item nav-link"
+    >Movies</a
+  >
+</nav> -->
+<div class="row">
+  <div class="col-2">
+    <nav class="nav nav-fill flex-column nav-pills" style="width:10%;">
+      <a routerLink="genres" routerLinkActive="active" class="nav-item nav-link"
+        >Genres</a
+      >
+      <a routerLink="movies" routerLinkActive="active" class="nav-item nav-link"
+        >Movies</a
+      >
+    </nav>
+  </div>
+  <div class="col-10">
+    <p>Welcome to vidly</p>
+    <div class="tab-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
