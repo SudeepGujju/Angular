@@ -1,4 +1,8 @@
-<form [formGroup]="profileForm" (ngSubmit)="signUp()">
+<form
+  [formGroup]="profileForm"
+  (ngSubmit)="signUp()"
+  enctype="multipart/form-data"
+>
   <div class="d-md-flex justify-content-center align-items-center mt-md-5">
     <div class="card loginform">
       <div class="card-body">
@@ -79,6 +83,7 @@
             />
           </div>
         </div>
+        <!-- <input type="file" name="files" formControlName="file" /> -->
         <div class="text-center">
           <input
             type="submit"

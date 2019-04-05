@@ -1,5 +1,5 @@
 <div class="">
-  <table class="table table-bordered table-stripped table-hover">
+  <table class="table table-bordered table-stripped table-hover table-responsive-sm">
     <thead class="thead-dark">
       <tr>
         <th>#</th>
@@ -10,10 +10,7 @@
       </tr>
     </thead>
     <tbody *ngIf="(MoviesList$ | async) as moviesList; else loading">
-      <tr
-        *ngFor="let movie of moviesList; let i = index"
-        [routerLink]="[movie._id]"
-      >
+      <tr *ngFor="let movie of moviesList; let i = index" [routerLink]="[movie._id]">
         <!-- {{
               movie | json
             }} -->
@@ -23,7 +20,6 @@
         <td>{{ movie.numberInStock }}</td>
         <td>{{ movie.dailyRentalRate }}</td>
       </tr>
-
       <!-- <tr>
             <td>
               X-Men
@@ -42,7 +38,40 @@
           </tr> -->
     </tbody>
   </table>
-  <ng-template #loading>
-    Loading
-  </ng-template>
 </div>
+<!-- *ngIf="(MoviesList$ | async) as moviesList" -->
+<div>
+  <div class="row">
+    <div class="col-md-3 mb-3" *ngFor="let movie of MoviesList; index as i; trackBy:trackMovie" @bounceInRight
+      @bounceOutLeft>
+      <div class="card">
+        <img src="../../../assets/Cinema.jpg" class="card-img" style="height:250px;width:100%;" />
+        <div class="card-body">
+          <p class="card-text">
+            <span class="movie-header">Title:</span> {{ movie.title }}<br />
+            <span class="movie-header">Genre:</span> {{ movie.genre.name
+            }}<br />
+            <span class="movie-header">Number In Stock:</span>
+            {{ movie.numberInStock }}<br />
+            <span class="movie-header">Rate:</span>
+            {{ movie.dailyRentalRate }}/-<br />
+          </p>
+          <div class="d-flex justify-content-center">
+            <span (click)="get(movie._id)" title="edit">
+              <i class="far fa-edit"></i>
+            </span>
+            <span (click)="delete(movie._id)" title="delete">
+              <i class="fas fa-trash-alt"></i>
+            </span>
+            <!-- <span (click)="deleteByIndex(movie)" title="delete">
+              <i class="fas fa-trash-alt"></i>
+            </span> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #loading>
+  Loading
+</ng-template>

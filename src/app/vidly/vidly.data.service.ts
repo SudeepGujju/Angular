@@ -5,7 +5,7 @@ import {
   HttpHeaders
 } from "@angular/common/http";
 import { CreateCustomErrorObject } from "../common/Error/create.custom.error.object";
-import { take } from "rxjs/operators";
+import { take, catchError } from "rxjs/operators";
 import { AuthService } from "../common/sevices/auth.service";
 
 @Injectable()
@@ -19,37 +19,50 @@ export class VidlyDataService {
   }
 
   get(id) {
-    return this.http.get(this.url + "/" + id).pipe(take(1));
+    return this.http.get(this.url + "/" + id).pipe(
+      take(1),
+      catchError(this.handleError)
+    );
   }
 
   getAll() {
-    return this.http.get(this.url).pipe(take(1));
+    return this.http.get(this.url).pipe(
+      take(1),
+      catchError(this.handleError)
+    );
   }
 
   create(resource) {
     return this.http
       .post(this.url, JSON.stringify(resource), {
-        headers: this.authService.headerForReq
+        headers: this.authService.FormDataHeaderForReq
       })
-      .pipe(take(1));
+      .pipe(
+        take(1),
+        catchError(this.handleError)
+      );
   }
   /* @Need to refractor */
-  update(resource) {
-    const { id } = resource;
-    delete resource.id;
+  update(resource, id) {
     return this.http
-      .put(this.url + "/" + id, JSON.stringify(resource), {
-        headers: this.authService.headerForReq
+      .put(this.url + "/" + id, resource, {
+        headers: this.authService.FormDataHeaderForReq
       })
-      .pipe(take(1));
+      .pipe(
+        take(1),
+        catchError(this.handleError)
+      );
   }
 
   delete(id) {
     return this.http
       .delete(this.url + "/" + id, {
-        headers: this.authService.headerForReq
+        headers: this.authService.JsonHeaderForReq
       })
-      .pipe(take(1));
+      .pipe(
+        take(1),
+        catchError(this.handleError)
+      );
   }
 
   handleError(err: HttpErrorResponse) {

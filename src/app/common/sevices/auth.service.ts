@@ -7,7 +7,6 @@ import {
 import { map, catchError, take } from "rxjs/operators";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { environment } from "../../../environments/environment";
-import { throwError } from "rxjs";
 import { CreateCustomErrorObject } from "../Error/create.custom.error.object";
 import { authHeader } from "../configuration/config";
 /*import { Location } from "@angular/common";*/
@@ -64,9 +63,10 @@ export class AuthService {
 
   logout() {
     //this.location.go("");
-    window.location.href = "/"; // Need to change this line
-    localStorage.removeItem("token");
+    //window.location.href = "/"; // Need to change this line
+    location.assign("/");
     this.currentUser = null;
+    localStorage.removeItem("token");
   }
 
   handleError(err: HttpErrorResponse) {
@@ -116,12 +116,20 @@ export class AuthService {
   //     : this.logout();
   // }
 
-  get headerForReq() {
+  get JsonHeaderForReq() {
     return new HttpHeaders({
       [authHeader]: localStorage.getItem("token"),
       ["Content-Type"]: "application/json"
     });
   }
+
+  get FormDataHeaderForReq() {
+    return new HttpHeaders({
+      [authHeader]: localStorage.getItem("token")
+      // ["Content-Type"]: "multipart/form-data"
+    });
+  }
+
   /*
   getCurrentuser() {
     let token = localStorage.getItem("token");

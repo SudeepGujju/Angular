@@ -1,3 +1,47 @@
-<p>
-  movie-detail works!
-</p>
+<form #movieForm="ngForm" enctype="multipart/form-data">
+  <div class="container">
+    <div class="card">
+      <div class="card-header text-center">New Movie</div>
+      <div class="card-body">
+        <input type="hidden" name="id" [ngModel]="Movie?.id" #id="ngModel">
+        <div class="form-group">
+          <label class="form-label">Title</label>
+          <input type="text" class="form-control" name="title" required [ngModel]="Movie?.title" #title="ngModel">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Genre</label>
+          <select class="form-control" name="genreId" required [ngModel]="Movie?.genreId" #genreId="ngModel">
+            <option *ngFor="let genre of GenreList;" [value]="genre._id">{{ genre.name }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Number In Stock</label>
+          <input type="number" class="form-control" name="numberInStock" max="255" min="0"
+            [ngModel]="Movie?.numberInStock" #numberInStock="ngModel">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Daily Rental Rate</label>
+          <input type="number" class="form-control" name="dailyRentalRate" max="255" min="0"
+            [ngModel]="Movie?.dailyRentalRate" #dailyRentalRate="ngModel">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Daily Rental Rate</label>
+          <input type="file" class="form-control" name="moviePic" id="moviePic" ngModel #moviePic="ngModel"
+            accept="image/*" (change)='onFileSelect($event, movieForm)'>
+        </div>
+        <input type="button" value="Create" class="btn btn-primary" [disabled]="movieForm.invalid"
+          (click)="createMovie(movieForm.value)">
+        <input type="button" value="Update" class="btn btn-primary" [disabled]="movieForm.invalid"
+          (click)="editMovie(movieForm.value)">
+        <!-- *ngIf="OperationMode == OperationMode.create"
+        <div class="text-center">
+          <input type="submit" value="Create" class="btn btn-primary" [disabled]="movieForm.invalid">
+        </div>
+        *ngIf="OperationMode == OperationMode.edit"
+        <div class="text-center">
+          <input type="submit" value="Update" class="btn btn-primary" [disabled]="movieForm.invalid">
+        </div> -->
+      </div>
+    </div>
+  </div>
+</form>

@@ -42,6 +42,10 @@ import { PasswordValidatorDirective } from "./common/utilities/validators/direct
 import { StudentsModule } from "./students/students.module";
 import { CustomPipesModule } from "./common/pipe/custom-pipes.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { KeyboardEventsDirective } from './common/directives/keyboard-events.directive';
+import { SortablejsModule } from 'angular-sortablejs';
+import { sortablejsConstant } from "./common/constants/sortablejsConstants";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +64,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     NoAccessComponent,
     SignupComponent,
     EmailValidatorDirective,
-    PasswordValidatorDirective
+    PasswordValidatorDirective,
+    KeyboardEventsDirective
   ],
   entryComponents: AddsComponents,
   imports: [
@@ -97,7 +102,10 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
         { path: "**", component: InvalidurlComponent }
       ]
       //,{ enableTracing: true }
-    )
+    ),
+    SortablejsModule.forRoot({
+      animation: 150
+    })
   ],
   providers: [
     UserService,
@@ -113,4 +121,4 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

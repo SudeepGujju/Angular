@@ -27,7 +27,7 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
     this.profileForm = this.fb.group(
       {
-        name: ["", [Validators.required, Validators.minLength(5)]],
+        name: ["", [Validators.required, Validators.minLength(4)]],
         email: ["", [Validators.required, emailValidator()]],
         password: [
           "",
@@ -41,7 +41,8 @@ export class SignupComponent implements OnInit {
             Validators.minLength(10),
             Validators.maxLength(10)
           ]
-        ]
+        ],
+        file: []
       },
       {
         validators: comparePasswords()

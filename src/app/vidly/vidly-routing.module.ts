@@ -6,15 +6,21 @@ import { GenreListComponent } from "./genres/genre-list/genre-list.component";
 import { GenreDetailComponent } from "./genres/genre-detail/genre-detail.component";
 import { MovieDetailComponent } from "./movies/movie-detail/movie-detail.component";
 import { GenresComponent } from "./genres/genres.component";
+import { AdminAuthGuard } from "../common/sevices/admin-auth-guard";
+import { AuthGuard } from "../common/sevices/auth-guard";
+import { DashboardComponent } from "./dashboard/dashboard.component";
+import { MoviesComponent } from "./movies/movies.component";
 
 const routes: Routes = [
   {
     path: "vidly",
     component: VidlyHomeComponent,
+    canActivate: [AuthGuard, AdminAuthGuard],
     children: [
       {
         path: "genres",
         component: GenresComponent,
+        canActivateChild: [AuthGuard, AdminAuthGuard],
         children: [
           {
             path: ":id",
@@ -28,13 +34,27 @@ const routes: Routes = [
       },
       {
         path: "movies",
-        component: MovieListComponent,
+        component: MoviesComponent,
+        canActivateChild: [AuthGuard, AdminAuthGuard],
         children: [
           {
             path: ":id",
             component: MovieDetailComponent
+          },
+          {
+            path: "",
+            component: MovieListComponent
           }
         ]
+      },
+      {
+        path: "dashboard",
+        component: DashboardComponent
+      },
+      {
+        path: "",
+        redirectTo: "dashboard",
+        pathMatch: "full"
       }
     ]
   }

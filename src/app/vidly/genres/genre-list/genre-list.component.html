@@ -1,5 +1,5 @@
 <div class="">
-  <table class="table table-bordered table-stripped table-hover">
+  <table class="table table-bordered table-stripped table-hover table-responsive-sm">
     <thead class="thead-dark">
       <tr>
         <th>#</th>
@@ -7,10 +7,7 @@
       </tr>
     </thead>
     <tbody *ngIf="(GenresList$ | async) as genresList; else loading">
-      <tr
-        *ngFor="let genre of genresList; let i = index"
-        [routerLink]="[genre._id]"
-      >
+      <tr *ngFor="let genre of genresList; let i = index" [routerLink]="[genre._id]">
         <td>{{ i + 1 }}</td>
         <td>{{ genre.name }}</td>
       </tr>

@@ -1,0 +1,17 @@
+.movie-header {
+  font-weight: bold;
+  font-family: cursive;
+  font-style: italic;
+}
+
+.far,
+.fas {
+  font-weight: 300;
+  font-size: 2vw;
+  cursor: pointer;
+  padding: 5px;
+}
+
+a {
+  color: black;
+}

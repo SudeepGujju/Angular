@@ -9,21 +9,27 @@
     >Movies</a
   >
 </nav> -->
-<div class="row">
-  <div class="col-2">
-    <nav class="nav nav-fill flex-column nav-pills" style="width:10%;">
-      <a routerLink="genres" routerLinkActive="active" class="nav-item nav-link"
-        >Genres</a
-      >
-      <a routerLink="movies" routerLinkActive="active" class="nav-item nav-link"
-        >Movies</a
-      >
-    </nav>
-  </div>
-  <div class="col-10">
+<div class="container-fluid">
+  <div class="w-100 text-center bg-light display-3">
     <p>Welcome to vidly</p>
-    <div class="tab-content">
-      <router-outlet></router-outlet>
+  </div>
+  <div class="row">
+    <div class="col-2">
+      <nav class="nav nav-fill flex-column nav-pills" sortablejs [sortablejsOptions]="sortableOptions">
+        <div class="nav-item">
+          <a routerLink="dashboard" routerLinkActive="active" [ngClass]="['nav-link']">Dashboard</a>
+        </div>
+        <div class="nav-item">
+          <a routerLink="genres" routerLinkActive="active" [ngClass]="['nav-link']">Users</a></div>
+        <div class="nav-item"><a routerLink="genres" routerLinkActive="active" class="nav-link">Genres</a>
+        </div>
+        <div class="nav-item"><a routerLink="movies" routerLinkActive="active" class="nav-link">Movies</a></div>
+      </nav>
+    </div>
+    <div class="col-10">
+      <div class="tab-content">
+        <router-outlet></router-outlet>
+      </div>
     </div>
   </div>
 </div>

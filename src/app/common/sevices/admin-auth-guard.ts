@@ -4,11 +4,12 @@ import {
   Router,
   CanActivate,
   ActivatedRouteSnapshot,
-  RouterStateSnapshot
+  RouterStateSnapshot,
+  CanActivateChild
 } from "@angular/router";
 
 @Injectable()
-export class AdminAuthGuard implements CanActivate {
+export class AdminAuthGuard implements CanActivate, CanActivateChild {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
@@ -17,5 +18,12 @@ export class AdminAuthGuard implements CanActivate {
 
     this.router.navigateByUrl("/noaccess");
     return false;
+  }
+
+  canActivateChild(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): boolean {
+    return this.canActivate(route, state);
   }
 }

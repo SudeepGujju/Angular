@@ -7,18 +7,18 @@ import { BadRequestError } from "../../common/Error/bad-input-error";
 import { NotFoundError } from "../../common/Error/not-found-error";
 import { ConnectionError } from "../../common/Error/connection.error";
 import { ActivatedRoute } from "@angular/router";
-import { fade } from "src/app/common/animations/fade.animation";
+import { fade, slide } from "src/app/common/animations/fade.animation";
 
 @Component({
   selector: "app-students",
   templateUrl: "./students.component.html",
-  styleUrls: ["./students.component.css"]
-  //animations: [fade]
+  styleUrls: ["./students.component.css"],
+  animations: [slide]
 })
 export class StudentsComponent implements OnInit {
   StudentsList: Student[];
   student: Student;
-  constructor(private SS: StudentsService, private route: ActivatedRoute) {}
+  constructor(private SS: StudentsService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     //console.log(this.route);

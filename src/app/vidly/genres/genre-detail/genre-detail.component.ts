@@ -14,7 +14,7 @@ export class GenreDetailComponent implements OnInit {
   constructor(
     private gs: GenreService,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.Genre$ = this.activatedRoute.paramMap.pipe(
@@ -26,7 +26,7 @@ export class GenreDetailComponent implements OnInit {
 
   updateGenre(genre) {
     console.log(genre.value);
-    this.gs.update(genre.value).subscribe(() => {});
+    //this.gs.update(genre.value).subscribe(() => {});
     //this.gs.create({ name: genre.value.name }).subscribe(() => {});
   }
 }

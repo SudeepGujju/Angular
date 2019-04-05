@@ -3,12 +3,8 @@
     <div class="col-6">
       <ul>
         <!--(click)="getStudent(student.ID)"-->
-        <li
-          *ngFor="let student of StudentsList; let i = index"
-          class="list-group-item list-group-item-action"
-          style="cursor:pointer"
-          [routerLink]="[student.ID]"
-        >
+        <li *ngFor="let student of StudentsList; let i = index" class="list-group-item list-group-item-action"
+          style="cursor:pointer" [routerLink]="[student.ID]" @slide>
           <span class="badge badge-primary">{{ i }}</span>
           <a class="card-link">{{ student.Name }} </a>
           <span class="badge badge-pill badge-primary">{{ i }}</span>
@@ -19,5 +15,6 @@
     <div class="col-sm-6" *ngIf="student">
       <student-details [student]="student"></student-details>
     </div>
-  --></div>
+  -->
+  </div>
 </div>

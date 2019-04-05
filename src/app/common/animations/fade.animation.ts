@@ -9,6 +9,6 @@ export const fade = trigger("fade", [
 ]);
 
 export const slide = trigger("slide", [
-  transition(":enter", [style({ left: "-100%" }), animate(1000)]),
+  transition(":enter", [style({ left: "-100%" }), animate(500)]),
   transition(":leave", [animate("0.5s ease-out", style({ left: "-100%" }))])
 ]);

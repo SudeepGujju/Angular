@@ -11,17 +11,24 @@ import { MovieService } from "./movies/movie.service";
 import { GenreService } from "./genres/genre.service";
 import { GenresComponent } from "./genres/genres.component";
 import { FormsModule } from "@angular/forms";
+import { DashboardComponent } from "./dashboard/dashboard.component";
+import { ExceptionsComponent } from "./exceptions/exceptions.component";
+import { MoviesComponent } from "./movies/movies.component";
+import { SortablejsModule } from "angular-sortablejs";
 
 @NgModule({
-  imports: [CommonModule, VidlyRoutingModule, FormsModule],
+  imports: [CommonModule, VidlyRoutingModule, FormsModule, SortablejsModule],
   declarations: [
     MovieListComponent,
     MovieDetailComponent,
     VidlyHomeComponent,
     GenreListComponent,
     GenreDetailComponent,
-    GenresComponent
+    GenresComponent,
+    DashboardComponent,
+    ExceptionsComponent,
+    MoviesComponent
   ],
   providers: [MovieService, GenreService]
 })
-export class VidlyModule {}
+export class VidlyModule { }
