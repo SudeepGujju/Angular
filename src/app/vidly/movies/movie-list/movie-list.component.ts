@@ -1,10 +1,11 @@
-import { trigger, transition, style, animate } from "@angular/animations";
 import { Component, OnInit } from "@angular/core";
 import { MovieService } from "../movie.service";
-import { delay } from "rxjs/operators";
+import { delay, tap } from "rxjs/operators";
 import { ActivatedRoute, Router } from "@angular/router";
-import { bounceInRightTrigger, bounceOutLeftTrigger } from "src/app/common/animations/bounce.animation";
+import { bounceInRightTrigger, bounceOutLeftTrigger } from "../../../common/animations/bounce.animation";
 import { Observable } from "rxjs";
+import { OperationMode } from "../../../common/constants/operationMode";
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: "app-movie-list",
@@ -22,11 +23,12 @@ import { Observable } from "rxjs";
 export class MovieListComponent implements OnInit {
   private MoviesList$: Observable<any>;
 
-  private MoviesList = [];
+  public MoviesList = null;
   constructor(
     private ms: MovieService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit() {
@@ -38,14 +40,19 @@ export class MovieListComponent implements OnInit {
   }
 
   getAll() {
-    this.MoviesList$ = this.ms.getAll().pipe(delay(1000));
+    this.spinner.show();
+    this.MoviesList$ = this.ms.getAll().pipe(delay(1000), tap(() => { this.spinner.hide(); }, () => { this.spinner.hide(); }));
     this.MoviesList$.subscribe(data => {
       this.MoviesList = data;
     })
   }
 
-  get(id) {
-    this.router.navigate(["./" + id], { relativeTo: this.route });
+  edit(id) {
+    this.router.navigate(["./detail"], { queryParams: { '_id': id, 'PageMode': OperationMode.edit }, relativeTo: this.route });
+  }
+
+  create() {
+    this.router.navigate(["./detail"], { queryParams: { 'PageMode': OperationMode.create }, relativeTo: this.route });
   }
 
   // deleteByIndex(movie) {

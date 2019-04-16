@@ -1,7 +1,10 @@
 <form #movieForm="ngForm" enctype="multipart/form-data">
   <div class="container">
     <div class="card">
-      <div class="card-header text-center">New Movie</div>
+      <div class="card-header">
+        <span [routerLink]="['../']" style="cursor:pointer;"><i class="fas fa-long-arrow-alt-left"></i></span>
+        <span style="margin-left:45%">Movie</span>
+      </div>
       <div class="card-body">
         <input type="hidden" name="id" [ngModel]="Movie?.id" #id="ngModel">
         <div class="form-group">
@@ -27,12 +30,18 @@
         <div class="form-group">
           <label class="form-label">Daily Rental Rate</label>
           <input type="file" class="form-control" name="moviePic" id="moviePic" ngModel #moviePic="ngModel"
-            accept="image/*" (change)='onFileSelect($event, movieForm)'>
+            accept="image/*" (change)='onFileSelect($event)'>
         </div>
-        <input type="button" value="Create" class="btn btn-primary" [disabled]="movieForm.invalid"
-          (click)="createMovie(movieForm.value)">
-        <input type="button" value="Update" class="btn btn-primary" [disabled]="movieForm.invalid"
-          (click)="editMovie(movieForm.value)">
+        <div [ngSwitch]="PageMode">
+          <div class="text-center" *ngSwitchCase="1">
+            <input type="button" value="Create" class="btn btn-primary" [disabled]="movieForm.invalid"
+              (click)="createMovie(movieForm.value)">
+          </div>
+          <div class="text-center" *ngSwitchCase="2">
+            <input type="button" value="Update" class="btn btn-primary" [disabled]="movieForm.invalid"
+              (click)="editMovie(movieForm.value)">
+          </div>
+        </div>
         <!-- *ngIf="OperationMode == OperationMode.create"
         <div class="text-center">
           <input type="submit" value="Create" class="btn btn-primary" [disabled]="movieForm.invalid">

@@ -1,4 +1,4 @@
-<div class="">
+<!-- <div class="">
   <table class="table table-bordered table-stripped table-hover table-responsive-sm">
     <thead class="thead-dark">
       <tr>
@@ -11,16 +11,16 @@
     </thead>
     <tbody *ngIf="(MoviesList$ | async) as moviesList; else loading">
       <tr *ngFor="let movie of moviesList; let i = index" [routerLink]="[movie._id]">
-        <!-- {{
+         {{
               movie | json
-            }} -->
+            }} 
         <td>{{ i + 1 }}</td>
         <td>{{ movie.title }}</td>
         <td>{{ movie.genre.name }}</td>
         <td>{{ movie.numberInStock }}</td>
         <td>{{ movie.dailyRentalRate }}</td>
       </tr>
-      <!-- <tr>
+      <tr>
             <td>
               X-Men
             </td>
@@ -35,14 +35,24 @@
             <td>
               Sci-Fi
             </td>
-          </tr> -->
+          </tr>
     </tbody>
   </table>
 </div>
+
+<ng-template #loading>
+  Loading
+</ng-template>-->
 <!-- *ngIf="(MoviesList$ | async) as moviesList" -->
+
 <div>
+  <div class="w-100 d-flex justify-content-end">
+    <div (click)="create()" style="cursor:pointer;">
+      <i class="far fa-plus-square"></i>Add Movie
+    </div>
+  </div>
   <div class="row">
-    <div class="col-md-3 mb-3" *ngFor="let movie of MoviesList; index as i; trackBy:trackMovie" @bounceInRight
+    <div class="col-sm-12 col-md-3 mb-3" *ngFor="let movie of MoviesList; index as i; trackBy:trackMovie" @bounceInRight
       @bounceOutLeft>
       <div class="card">
         <img src="../../../assets/Cinema.jpg" class="card-img" style="height:250px;width:100%;" />
@@ -57,7 +67,7 @@
             {{ movie.dailyRentalRate }}/-<br />
           </p>
           <div class="d-flex justify-content-center">
-            <span (click)="get(movie._id)" title="edit">
+            <span (click)="edit(movie._id)" title="edit">
               <i class="far fa-edit"></i>
             </span>
             <span (click)="delete(movie._id)" title="delete">
@@ -70,8 +80,8 @@
         </div>
       </div>
     </div>
+    <div class="col-12 display-4 text-center m-4" *ngIf="MoviesList && MoviesList.length <= 0 ">
+      No Records
+    </div>
   </div>
 </div>
-<ng-template #loading>
-  Loading
-</ng-template>

@@ -14,8 +14,12 @@ export class MainComponent {
 
   ProductList;
   PersonsList;
+  ShowJSONList = false;
+  showPipes = false;
+  FlagShowPersons = false;
 
-  constructor(ListService: MainService, private AuthService: AuthService) {
+
+  constructor(ListService: MainService, public AuthService: AuthService) {
     this.Mobiles = ListService.getMobilesList();
     this.Laptops = ListService.getLaptopsList();
     this.PersonsList = ListService.getPersonsList();

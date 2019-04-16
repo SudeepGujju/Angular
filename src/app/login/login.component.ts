@@ -6,6 +6,8 @@ import { ConnectionError } from "../common/Error/connection.error";
 import { BadRequestError } from "../common/Error/bad-input-error";
 import { NotFoundError } from "../common/Error/not-found-error";
 import { AppError } from "../common/Error/app-error";
+import { NgxSpinnerService } from "ngx-spinner";
+import { tap } from "rxjs/operators";
 
 @Component({
   selector: "app-login",
@@ -19,13 +21,20 @@ export class LoginComponent implements OnInit {
   constructor(
     private AuthService: AuthService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
-  ) {}
+    private activatedRoute: ActivatedRoute,
+    private spinner: NgxSpinnerService
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   signIn(credentials) {
-    this.AuthService.login(credentials).subscribe(
+    this.spinner.show('AuthSpinner');
+    this.AuthService.login(credentials).pipe(
+      tap(
+        () => { this.spinner.hide('AuthSpinner'); console.log('AuthSucc'); },
+        () => { this.spinner.hide('AuthSpinner'); console.log('AuthFail'); }
+      )
+    ).subscribe(
       result => {
         if (result) {
           let returnUrl = this.activatedRoute.snapshot.queryParamMap.get(

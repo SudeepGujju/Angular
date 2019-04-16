@@ -11,7 +11,7 @@ import { ConnectionError } from "../common/Error/connection.error";
 export class UserService {
   private url = "http://localhost:6800/users";
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   register(profile) {
     return this.http.post(this.url, profile).pipe(catchError(this.handleError));

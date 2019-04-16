@@ -15,7 +15,6 @@ import { JSONPLACEComponent } from "./jsonplace/jsonplace.component";
 import { MainService } from "./main/main.service";
 import { CustomService } from "./service/custom.service";
 import { PostService } from "./jsonplace/post.service";
-import { DataService } from "./common/sevices/data-service";
 
 import { FormatDirective } from "./directives/format.directive";
 
@@ -45,6 +44,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { KeyboardEventsDirective } from './common/directives/keyboard-events.directive';
 import { SortablejsModule } from 'angular-sortablejs';
 import { sortablejsConstant } from "./common/constants/sortablejsConstants";
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   declarations: [
@@ -105,17 +105,17 @@ import { sortablejsConstant } from "./common/constants/sortablejsConstants";
     ),
     SortablejsModule.forRoot({
       animation: 150
-    })
+    }),
+    NgxSpinnerModule
   ],
   providers: [
+    AuthService,
     UserService,
     MainService,
     CustomService,
     PostService,
-    DataService,
     AddsService,
     { provide: ErrorHandler, useClass: MyErrorHandler },
-    AuthService,
     AuthGuard,
     AdminAuthGuard
   ],

@@ -9,7 +9,7 @@ import { switchMap, map } from "rxjs/operators";
   styleUrls: ["./genre-detail.component.css"]
 })
 export class GenreDetailComponent implements OnInit {
-  private Genre$;
+  public Genre$;
 
   constructor(
     private gs: GenreService,

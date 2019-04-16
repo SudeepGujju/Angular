@@ -1,7 +1,7 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: "<app-techadd>",
+  selector: '<app-techadd>',
   template: `
     <div class="card" style="width: 18rem;">
       <div class="card-img-top">

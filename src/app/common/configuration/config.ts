@@ -10,11 +10,11 @@ const vidlyURLs = {
   genres: "genres"
 };
 
-export const getVildyMoviesURL = (): string =>
-  serverBaseURL + "/" + vidlyURLs.movies;
+export const getVildyMoviesURL = (): string => "/" + vidlyURLs.movies;
+//serverBaseURL + "/" + vidlyURLs.movies;
 
-export const getVildyGenresURL = (): string =>
-  serverBaseURL + "/" + vidlyURLs.genres;
+export const getVildyGenresURL = (): string => "/" + vidlyURLs.genres;
+  //serverBaseURL + "/" + vidlyURLs.genres;
 
 /*
 export function mapErrorMsg():string{

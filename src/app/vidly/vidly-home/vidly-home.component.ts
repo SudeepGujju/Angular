@@ -12,11 +12,11 @@ export class VidlyHomeComponent implements OnInit {
   //private sortFilterClass = sortablejsConstant.filterClass;
   private sortChosenClass = sortablejsConstant.chosenClass;
   private sortHandleClass = sortablejsConstant.handleClass;
-  private sortableOptions: SortablejsOptions = {
+  public sortableOptions: SortablejsOptions = {/* 
     group: "vidly",
     sort: true,
-    chosenClass: this.sortChosenClass,// -- work
-    handle: this.sortHandleClass
+    chosenClass: this.sortChosenClass, */// -- work
+    //handle: this.sortHandleClass
     //draggable: ".item" -- works
     // filter: this.sortFilterClass
   };

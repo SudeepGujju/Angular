@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { GenreService } from '../../genres/genre.service';
 import { MovieService } from '../movie.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
-import { empty } from 'rxjs';
+import { switchMap, map } from 'rxjs/operators';
+import { empty, combineLatest } from 'rxjs';
+import { OperationMode } from '../../../common/constants/operationMode';
 //import { OperationMode } from '../../../common/sevices/operation-mode.service';
 
 @Component({
@@ -14,28 +15,41 @@ import { empty } from 'rxjs';
 export class MovieDetailComponent implements OnInit {
 
   //private OperationMode = null;
-  private GenreList: any[];
-  private Movie: {
+  public PageMode = OperationMode.create;
+  public GenreList: any[];
+  public Movie: {
     id,
     title,
     genreId,
     numberInStock,
     dailyRentalRate
-  }
+  };
   private moviePic: File;
   constructor(private gs: GenreService, private ms: MovieService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     // this.OperationMode = this.mode.CreateMode;
+    // x.subscribe((a) => { console.log(a) });
+    // const y = combineLatest(this.route.paramMap, this.route.queryParamMap).pipe(
+    //   map(([paramMap, queryParams]) => ({ ...paramMap, ...queryParams }))
+    // );
+    // y.subscribe((a) => { console.log(a) });
+
     this.gs.getAll().subscribe((data: any[]) => { this.GenreList = data });
-    this.route.paramMap.
+
+    const Params$ = combineLatest(this.route.params, this.route.queryParams).pipe(
+      map(([params, queryParams]) => ({ ...params, ...queryParams }))
+    );
+    Params$.
       pipe(
         switchMap(paramMap => {
 
-          if (paramMap.get("id"))
-            return this.ms.get(paramMap.get("id"));
+          if (paramMap['PageMode']) this.PageMode = paramMap['PageMode'];
+
+          if (paramMap["_id"])
+            return this.ms.get(paramMap["_id"]);
           else
-            return empty()
+            return empty();
 
         })
       ).
@@ -48,8 +62,8 @@ export class MovieDetailComponent implements OnInit {
           dailyRentalRate: movie.dailyRentalRate,
           id: movie._id
         }
-
-      }, null, () => console.log("complte"));
+        console.log(this.Movie);
+      }, null, () => console.log("complete"));
   }
 
   createMovie(movie) {

@@ -5,11 +5,13 @@ import {
   HttpHeaders
 } from "@angular/common/http";
 import { CreateCustomErrorObject } from "../common/Error/create.custom.error.object";
-import { take, catchError } from "rxjs/operators";
+import { take, catchError, tap } from "rxjs/operators";
 import { AuthService } from "../common/sevices/auth.service";
 
-@Injectable()
+
+//@Injectable()
 export class VidlyDataService {
+
   constructor(
     private url: string,
     private http: HttpClient,
@@ -35,7 +37,7 @@ export class VidlyDataService {
   create(resource) {
     return this.http
       .post(this.url, JSON.stringify(resource), {
-        headers: this.authService.FormDataHeaderForReq
+        headers: this.authService.JsonHeaderForReq
       })
       .pipe(
         take(1),

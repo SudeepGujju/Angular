@@ -9,16 +9,14 @@ import { ConnectionError } from "../Error/connection.error";
 import { AuthService } from "./auth.service";
 import { Student } from "src/app/students/Student.Interface";
 
-@Injectable()
 export class DataService {
   //private url = "http://localhost:6800/Students";
-
   constructor(
     private url: string,
     private http: HttpClient,
     private isAuthReq: boolean,
     private authService: AuthService
-  ) {}
+  ) { }
 
   getAll() {
     return this.http.get(this.url, { headers: this.getAuthHeader() }).pipe(

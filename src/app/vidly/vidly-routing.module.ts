@@ -8,7 +8,7 @@ import { MovieDetailComponent } from "./movies/movie-detail/movie-detail.compone
 import { GenresComponent } from "./genres/genres.component";
 import { AdminAuthGuard } from "../common/sevices/admin-auth-guard";
 import { AuthGuard } from "../common/sevices/auth-guard";
-import { DashboardComponent } from "./dashboard/dashboard.component";
+import { DashboardComponent } from "./Dashboard/dashboard.component";
 import { MoviesComponent } from "./movies/movies.component";
 
 const routes: Routes = [
@@ -38,7 +38,7 @@ const routes: Routes = [
         canActivateChild: [AuthGuard, AdminAuthGuard],
         children: [
           {
-            path: ":id",
+            path: "detail",
             component: MovieDetailComponent
           },
           {
@@ -64,4 +64,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class VidlyRoutingModule {}
+export class VidlyRoutingModule { }

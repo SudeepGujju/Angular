@@ -11,7 +11,7 @@ import { AuthService } from "./common/sevices/auth.service";
 export class AppComponent {
   title = "AngularApp";
 
-  constructor(private authService: AuthService) {}
+  constructor(public authService: AuthService) { }
   getAnimtionData(outlet) {
     return (
       outlet &&

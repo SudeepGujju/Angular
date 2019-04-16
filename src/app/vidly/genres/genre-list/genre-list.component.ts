@@ -7,9 +7,9 @@ import { GenreService } from "../genre.service";
   styleUrls: ["./genre-list.component.css"]
 })
 export class GenreListComponent implements OnInit {
-  private GenresList$;
+  public GenresList$;
 
-  constructor(private gs: GenreService) {}
+  constructor(private gs: GenreService) { }
 
   ngOnInit() {
     this.GenresList$ = this.gs.getAll();
