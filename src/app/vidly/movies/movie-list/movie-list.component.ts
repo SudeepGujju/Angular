@@ -40,11 +40,12 @@ export class MovieListComponent implements OnInit {
   }
 
   getAll() {
-    this.spinner.show();
-    this.MoviesList$ = this.ms.getAll().pipe(delay(1000), tap(() => { this.spinner.hide(); }, () => { this.spinner.hide(); }));
-    this.MoviesList$.subscribe(data => {
-      this.MoviesList = data;
-    })
+    //this.spinner.show();
+    this.MoviesList$ = this.ms.getAll();//.pipe(delay(1000), tap(() => { this.spinner.hide(); }, () => { this.spinner.hide(); }));
+    this.MoviesList$.subscribe(
+      data => { this.MoviesList = data; },
+      this.localErrorHandler
+    )
   }
 
   edit(id) {
@@ -64,11 +65,18 @@ export class MovieListComponent implements OnInit {
 
   delete(id) {
     this.ms.delete(id).subscribe(
-      data => {
-        this.getAll();
-      },
-      err => { }
+      data => { this.getAll(); },
+      this.localErrorHandler
     );
+  }
+
+  localErrorHandler = (err) => {
+
+    if (!err.errorMessage)
+      throw err;
+    else
+      alert(err.errorMessage);
+
   }
 
   // ngOnDestroy() {

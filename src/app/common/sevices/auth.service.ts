@@ -8,7 +8,7 @@ import { map, catchError, take } from "rxjs/operators";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { environment } from "../../../environments/environment";
 import { CreateCustomErrorObject } from "../Error/create.custom.error.object";
-import { authHeader } from "../configuration/config";
+import { authHeader, getAuthURL } from "../configuration/config";
 /*import { Location } from "@angular/common";*/
 
 @Injectable()
@@ -17,12 +17,13 @@ export class AuthService {
 
   constructor(private http: HttpClient /*, private location: Location*/) {
     this.jwtHelper = new JwtHelperService();
-    let token = localStorage.getItem("token");
+    let token = this.getToken();
     if (token) this.decodeTokenAndSetUser(token);
   }
 
   //url = "http://localhost:6200/authenticate";
-  url = environment.serverUrl + "auth";
+  //url = environment.serverUrl + "auth";
+  url = getAuthURL();
 
   currentUser: Token = null;
 
@@ -38,7 +39,7 @@ export class AuthService {
           const token = response.headers.get(authHeader);
 
           if (token) {
-            localStorage.setItem("token", token);
+            this.setToken(token);
             this.decodeTokenAndSetUser(token);
             return true;
           }
@@ -66,7 +67,7 @@ export class AuthService {
     //window.location.href = "/"; // Need to change this line
     location.assign("/");
     this.currentUser = null;
-    localStorage.removeItem("token");
+    this.deleteToken();
   }
 
   handleError(err: HttpErrorResponse) {
@@ -76,7 +77,7 @@ export class AuthService {
 
   /* @ Need to refractor */
   isLoggedIn() {
-    let token = localStorage.getItem("token");
+    let token = this.getToken();
 
     let validToken: boolean = false;
     //if (!token) return false;
@@ -108,6 +109,15 @@ export class AuthService {
 
   getToken() {
     return localStorage.getItem("token");
+  }
+
+  setToken(token) {
+    localStorage.setItem("token", token);
+    return;
+  }
+
+  deleteToken() {
+    localStorage.removeItem("token");
   }
 
   // get HeaderForReq() {

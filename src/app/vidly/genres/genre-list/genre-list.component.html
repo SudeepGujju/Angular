@@ -1,19 +1,42 @@
-<div class="">
-  <table class="table table-bordered table-stripped table-hover table-responsive-sm">
+<div>
+  <div class="w-100 d-flex justify-content-end">
+    <div (click)="create()" style="cursor:pointer;">
+      <i class="far fa-plus-square"></i>Add Genre
+    </div>
+  </div>
+  <div *ngIf="(GenresList$ | async) as genresList;else NoRecords">
+    <ul class="list-group" @stagger>
+      <li class="list-group-item list-group-item-action"
+        *ngFor="let genre of genresList; index as i; trackBy:trackGenre" @bounceInRight @bounceOutLeft>
+        <div class="d-flex justify-content-between align-items-center">
+          <h6>{{genre.name}}</h6>
+          <div>
+            <span (click)="edit(genre._id)" title="edit">
+              <i class="far fa-edit"></i>
+            </span>
+            <span (click)="delete(genre._id)" title="delete">
+              <i class="fas fa-trash-alt"></i>
+            </span>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <ng-template class="col-12 display-4 text-center m-4" #NoRecords>
+    No Records
+  </ng-template>
+  <!-- <table class="table table-bordered table-stripped table-hover table-responsive-sm">
     <thead class="thead-dark">
       <tr>
         <th>#</th>
         <th>Name</th>
       </tr>
     </thead>
-    <tbody *ngIf="(GenresList$ | async) as genresList; else loading">
+    <tbody *ngIf="(GenresList$ | async) as genresList;">
       <tr *ngFor="let genre of genresList; let i = index" [routerLink]="[genre._id]">
         <td>{{ i + 1 }}</td>
         <td>{{ genre.name }}</td>
       </tr>
     </tbody>
-  </table>
-  <ng-template #loading>
-    Loading
-  </ng-template>
+  </table> -->
 </div>

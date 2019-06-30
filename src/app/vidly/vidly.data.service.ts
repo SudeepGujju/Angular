@@ -1,11 +1,10 @@
 import { Injectable } from "@angular/core";
 import {
   HttpClient,
-  HttpErrorResponse,
-  HttpHeaders
+  HttpErrorResponse
 } from "@angular/common/http";
 import { CreateCustomErrorObject } from "../common/Error/create.custom.error.object";
-import { take, catchError, tap } from "rxjs/operators";
+import { take, catchError } from "rxjs/operators";
 import { AuthService } from "../common/sevices/auth.service";
 
 
@@ -17,7 +16,7 @@ export class VidlyDataService {
     private http: HttpClient,
     private authService: AuthService
   ) {
-    console.log(url);
+    //console.log(url);
   }
 
   get(id) {
@@ -36,8 +35,8 @@ export class VidlyDataService {
 
   create(resource) {
     return this.http
-      .post(this.url, JSON.stringify(resource), {
-        headers: this.authService.JsonHeaderForReq
+      .post(this.url, resource, {
+        headers: this.authService.FormDataHeaderForReq
       })
       .pipe(
         take(1),
@@ -45,9 +44,17 @@ export class VidlyDataService {
       );
   }
   /* @Need to refractor */
-  update(resource, id) {
+  update(resource, id?) {
+
+    let url = this.url + "/";
+
+    if (id)
+      url += id;
+    else
+      url += resource.id;
+
     return this.http
-      .put(this.url + "/" + id, resource, {
+      .put(url, resource, {
         headers: this.authService.FormDataHeaderForReq
       })
       .pipe(

@@ -23,7 +23,7 @@ const routes: Routes = [
         canActivateChild: [AuthGuard, AdminAuthGuard],
         children: [
           {
-            path: ":id",
+            path: "detail",
             component: GenreDetailComponent
           },
           {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { AuthService } from "../common/sevices/auth.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { CustomError } from "../common/Error/custom.error";
@@ -22,17 +22,18 @@ export class LoginComponent implements OnInit {
     private AuthService: AuthService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private cdRef: ChangeDetectorRef
   ) { }
 
   ngOnInit() { }
 
   signIn(credentials) {
-    this.spinner.show('AuthSpinner');
+    // this.spinner.show('AuthSpinner');
     this.AuthService.login(credentials).pipe(
       tap(
-        () => { this.spinner.hide('AuthSpinner'); console.log('AuthSucc'); },
-        () => { this.spinner.hide('AuthSpinner'); console.log('AuthFail'); }
+        //  () => { this.spinner.hide('AuthSpinner'); console.log('AuthSucc'); },
+        //  () => { this.spinner.hide('AuthSpinner'); console.log('AuthFail'); }
       )
     ).subscribe(
       result => {
@@ -43,33 +44,42 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl(returnUrl || "/");
         } //else this.invalidLogin = true;
       },
-      error => {
-        this.parseCustomErrorObject(error);
-      }
+      this.localErrorHandler
     );
   }
 
-  parseCustomErrorObject(customError) {
-    //console.log(customError);
-    if (customError.errorMessage) this.errorMsg = customError.errorMessage;
+  localErrorHandler = (err) => {
+
+    this.errorMsg = null;
+
+    if (!err.errorMessage)
+      throw err;
     else {
-      let err = customError.errorInstance;
-
-      if (err instanceof ConnectionError)
-        this.errorMsg = "Unable to establish connection";
-      else if (err instanceof BadRequestError)
-        this.errorMsg = "Invalid input details";
-      else if (err instanceof NotFoundError)
-        this.errorMsg = "Requested details not found";
-      else if (err instanceof AppError) throw err;
-      /* @Uncomment if alerts are required
-
-      if (err instanceof ConnectionError)
-        alert("Unable to establish connection");
-      else if (err instanceof BadRequestError) alert("Invalid input details");
-      else if (err instanceof NotFoundError)
-        alert("Requested details not found");
-      else if (err instanceof AppError) throw err; */
+      this.errorMsg = err.errorMessage;
     }
   }
+
+  // parseCustomErrorObject(customError) {
+
+  //   if (customError.errorMessage) this.errorMsg = customError.errorMessage;
+  //   else {
+  //     let err = customError.errorInstance;
+
+  //     if (err instanceof ConnectionError)
+  //       this.errorMsg = "Unable to establish connection";
+  //     else if (err instanceof BadRequestError)
+  //       this.errorMsg = "Invalid input details";
+  //     else if (err instanceof NotFoundError)
+  //       this.errorMsg = "Requested details not found";
+  //     else if (err instanceof AppError) throw err;
+  //     /* @Uncomment if alerts are required
+
+  //     if (err instanceof ConnectionError)
+  //       alert("Unable to establish connection");
+  //     else if (err instanceof BadRequestError) alert("Invalid input details");
+  //     else if (err instanceof NotFoundError)
+  //       alert("Requested details not found");
+  //     else if (err instanceof AppError) throw err; */
+  //   }
+  // }
 }

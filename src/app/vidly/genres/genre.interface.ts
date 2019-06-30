@@ -1,0 +1,5 @@
+
+interface Genre {
+    id,
+    name
+}

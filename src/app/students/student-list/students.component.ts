@@ -23,7 +23,9 @@ export class StudentsComponent implements OnInit {
   ngOnInit() {
     //console.log(this.route);
     // this.SS.getAll()
-    this.route.data.pipe(tap(console.log)).subscribe(data => {
+    this.route.data.pipe(
+      //  tap(console.log)
+    ).subscribe(data => {
       this.StudentsList = data.student;
     }, this.localErrorMessage);
   }

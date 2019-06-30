@@ -15,8 +15,9 @@ export const bounceOutLeftAnimation = animation(
 
 export const bounceInRightAnimation = animation(
     animate("0.5s ease-out", keyframes([
+        style({ offset: 0, opacity: 0 }),
         style({
-            offset: 0.2, opacity: 1,
+            offset: 0.2, opacity: 0,
             transform: 'translateX(20px)'
         }),
         style({
@@ -28,7 +29,7 @@ export const bounceInRightAnimation = animation(
 export const bounceInLeftAnimation = animation(
     animate("0.5s ease-out", keyframes([
         style({
-            offset: 0.2, opacity: 1,
+            offset: 0.2, opacity: 0,
             transform: 'translateX(-20px)'
         }),
         style({

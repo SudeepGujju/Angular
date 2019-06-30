@@ -6,11 +6,11 @@ import {
   ActivatedRouteSnapshot
 } from "@angular/router";
 import { Student } from "./Student.Interface";
-import { map } from "rxjs/operators";
+import { map, catchError } from "rxjs/operators";
 
 @Injectable()
 export class StudentResolver implements Resolve<Student[]> {
-  constructor(private SS: StudentsService) {}
+  constructor(private SS: StudentsService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return this.SS.getAll().pipe(
