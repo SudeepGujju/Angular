@@ -9,7 +9,7 @@ import { ConnectionError } from "../common/Error/connection.error";
 
 @Injectable()
 export class UserService {
-  private url = "http://localhost:6800/users";
+  private url = "http://localhost:6800/api/users";
 
   constructor(private http: HttpClient) { }
 

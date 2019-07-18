@@ -5,15 +5,16 @@ import { Directive, HostListener, ElementRef, Input } from '@angular/core';
 })
 export class FormatDirective {
 
-  constructor(public el : ElementRef) { }
+  constructor(public el: ElementRef) { }
 
   @Input('format') format;
 
-  @HostListener('blur')  onblur(){
+  @HostListener('blur')
+  onblur() {
 
     let value: string = this.el.nativeElement.value;
 
-    if(this.format == "uppercase")
+    if (this.format == "uppercase")
       this.el.nativeElement.value = value.toUpperCase();
     else
       this.el.nativeElement.value = value.toLowerCase();

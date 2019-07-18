@@ -41,8 +41,9 @@ export class SignupComponent implements OnInit {
             Validators.minLength(10),
             Validators.maxLength(10)
           ]
-        ],
-        file: []
+        ]
+		/*,
+        file: []*/
       },
       {
         validators: comparePasswords()
@@ -55,7 +56,7 @@ export class SignupComponent implements OnInit {
   }
 
   signUp() {
-    const profileValues = this.profileForm.value;
+    const profileValues = Object.assign({}, this.profileForm.value);
 
     if (profileValues.password != profileValues.confirmPassword) {
       this.profileForm.setErrors({ InvalidPassword: true });

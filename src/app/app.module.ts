@@ -41,7 +41,7 @@ import { PasswordValidatorDirective } from "./common/utilities/validators/direct
 import { StudentsModule } from "./students/students.module";
 import { CustomPipesModule } from "./common/pipe/custom-pipes.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { KeyboardEventsDirective } from './common/directives/keyboard-events.directive';
+import { KeyboardEventsDirective, InputNumberDirective } from './common/directives/keyboard-events.directive';
 import { SortablejsModule } from 'angular-sortablejs';
 import { sortablejsConstant } from "./common/constants/sortablejsConstants";
 import { NgxSpinnerModule } from "ngx-spinner";
@@ -65,7 +65,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
     SignupComponent,
     EmailValidatorDirective,
     PasswordValidatorDirective,
-    KeyboardEventsDirective
+    KeyboardEventsDirective,
+    InputNumberDirective
   ],
   entryComponents: AddsComponents,
   imports: [
